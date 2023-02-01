@@ -1,0 +1,7 @@
+apiVersion: v2
+name: helm-skaffold-demo
+description: A Helm chart for demoing skaffold with helm
+
+type: application
+version: 0.1.0
+appVersion: "4"
