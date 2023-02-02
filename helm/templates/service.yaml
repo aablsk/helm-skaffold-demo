@@ -6,6 +6,9 @@ metadata:
   labels:
     {{- toYaml .Values.podLabels | nindent 4 }}
   {{- end }}
+  {{- if .Values.namespace }}  
+  namespace: {{ .Values.namespace }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   selector:

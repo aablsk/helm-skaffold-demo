@@ -54,7 +54,6 @@ profiles:
         releases:
         - name: helm-skaffold-demo 
           chartPath: helm
-          namespace: hsd
           setValues:
             podLabels.env: production
             replicas: 2
@@ -62,3 +61,4 @@ profiles:
             - "helm/values.yaml"
           setValueTemplates:
             image: "{{.IMAGE_FULLY_QUALIFIED_server}}"
+            namespace: hsd

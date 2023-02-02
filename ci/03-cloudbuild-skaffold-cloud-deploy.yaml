@@ -23,7 +23,5 @@ steps:
       - "--delivery-pipeline=helm-skaffold-demo"
       - "--build-artifacts=/workspace/artifacts.json"
       - "--region=$LOCATION"
-      - "--gcs-source-staging-dir=$_SOURCE_STAGING_BUCKET/$SHORT_SHA"
-      - "--skaffold-version=skaffold_preview"
 options:
   logging: CLOUD_LOGGING_ONLY
