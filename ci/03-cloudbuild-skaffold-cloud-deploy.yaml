@@ -16,7 +16,7 @@ steps:
       - "deploy"
       - "releases"
       - "create"
-      - "$SHORT_SHA-$DATE-$TIME"
+      - "$SHORT_SHA"
       - "--delivery-pipeline=helm-skaffold-demo"
       - "--build-artifacts=/workspace/artifacts.json"
       - "--region=$LOCATION"
