@@ -35,12 +35,7 @@ app.get('/', (req, res) => {
     res.send(`
     <h1>Helm Skaffold Demo(🪢🧊) v<b>${version}</b></h1>
 
-        Hell🌻 w🌻rld fr🌻m Skaff🌻ld in N🌻deJS! This is a dem🌻nstrative app t🌻 dem🌻nstrate CI/CD with Cl🌻ud Depl🌻y and Cl🌻ud Build<br/>
-
-        I read versi🌻n VERSI🌻N file and this ./VERSI🌻N file is actually read by the build pipeline
-        int🌻 the Cl🌻ud Depl🌻y release name - w🌻🌻🌻t!<br/><br/>
-
-        Please help me choose the best icon for NodeJS: 🟢🟩📗🥬🍏💚🪢(knot=node). 
+        Hello world from Skaffold in NodeJS! This is a demonstrative app to demonstrate CI/CD with Cloud Deploy and Cloud Build<br/>
 
         Link to <a href="/statusz" >Statusz</a>.
         <hr/>
