@@ -8,11 +8,8 @@ steps:
       - "--default-repo=$_CONTAINER_REGISTRY"
   # test
   - name: gcr.io/k8s-skaffold/skaffold:v2.0.3-lts
-    args:
-      - "skaffold"
-      - "test"
-      - "--build-artifacts=/workspace/artifacts.json"
-      - "--assume-yes"
+    script: |
+      skaffold test --build-artifacts=/workspace/artifacts.json --assume-yes
   # deploy with Cloud Deploy
   - name: gcr.io/cloud-builders/gcloud
     args: 

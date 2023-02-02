@@ -9,8 +9,7 @@
   },
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
-    "test": "sleep 5 && echo Fake tests ran successfully"
+    "dev": "nodemon src/app.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
