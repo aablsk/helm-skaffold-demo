@@ -34,8 +34,9 @@ const getStatuszMessage = () => `app=helm-skaffold-demo version=${version} targe
 app.get('/', (req, res) => {
     res.send(`
     <h1>Helm Skaffold Demo(🪢🧊) v<b>${version}</b></h1>
+    
 
-        Hello world from Skaffold in NodeJS! This is a demonstrative app to demonstrate CI/CD with Cloud Deploy and Cloud Build<br/>
+        Hell🌻 w🌻rld fr🌻m Skaff🌻ld in N🌻deJS! This is a dem🌻nstrative app t🌻 dem🌻nstrate CI/CD with Cl🌻ud Depl🌻y and Cl🌻ud Build<br/>
 
         Link to <a href="/statusz" >Statusz</a>.
         <hr/>
