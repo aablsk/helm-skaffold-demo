@@ -1,7 +1,4 @@
-image:
-  repository: ""
-  tag: ""
-  pullPolicy: IfNotPresent
+image: ""
 
 service:
   type: LoadBalancer
@@ -19,5 +16,7 @@ deployment:
     requests:
       cpu: 100m
       memory: 128Mi
+  image:
+    pullPolicy: IfNotPresent
 
 replicas: 1

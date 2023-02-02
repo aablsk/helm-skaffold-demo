@@ -1,0 +1,43 @@
+steps:
+  # build images, package & push helm chart
+  - name: gcr.io/k8s-skaffold/skaffold:v2.0.3-lts
+    args:
+      - "skaffold"
+      - "build"
+      - "--file-output=/workspace/artifacts.json"
+      - "--default-repo=$_CONTAINER_REGISTRY"
+  # test
+  - name: gcr.io/k8s-skaffold/skaffold:v2.0.3-lts
+    args:
+      - "skaffold"
+      - "test"
+      - "--build-artifacts=/workspace/artifacts.json"
+      - "--assume-yes"
+  # deploy with skaffold
+  - name: gcr.io/k8s-skaffold/skaffold:v2.0.3-lts
+    args:
+      - "skaffold"
+      - "deploy"
+      - "--build-artifacts=/workspace/artifacts.json"
+      - "--assume-yes"
+  # verify deployment with skaffold
+  - name: gcr.io/k8s-skaffold/skaffold:v2.0.3-lts
+    args:
+      - "skaffold"
+      - "verify"
+      - "--build-artifacts=/workspace/artifacts.json"
+  # deploy with Cloud Deploy
+  - name: gcr.io/cloud-builders/gcloud
+    args: 
+      - "deploy"
+      - "releases"
+      - "create"
+      - "$_TEAM-$SHORT_SHA-$$DATE-$$TIME"
+      - "--delivery-pipeline=$_TEAM"
+      - "--build-artifacts=/workspace/artifacts.json"
+      - "--skaffold-file=src/$_TEAM/skaffold.yaml"
+      - "--region=$LOCATION"
+      - "--gcs-source-staging-dir=$_SOURCE_STAGING_BUCKET/$SHORT_SHA"
+      - "--skaffold-version=skaffold_preview"
+options:
+  logging: CLOUD_LOGGING_ONLY

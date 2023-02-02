@@ -18,6 +18,7 @@ const fs = require('fs')
 const express = require('express')
 const app = express()
 
+
 // chomping
 const version = fs.readFileSync('VERSION', 'utf-8').split("\n")[0]
 const appName = process.env.APP_NAME
@@ -33,7 +34,6 @@ const getStatuszMessage = () => `app=helm-skaffold-demo version=${version} targe
 app.get('/', (req, res) => {
     res.send(`
     <h1>Helm Skaffold Demo(🪢🧊) v<b>${version}</b></h1>
-
 
         Hell🌻 w🌻rld fr🌻m Skaff🌻ld in N🌻deJS! This is a dem🌻nstrative app t🌻 dem🌻nstrate CI/CD with Cl🌻ud Depl🌻y and Cl🌻ud Build<br/>
 

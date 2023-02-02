@@ -1,0 +1,36 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+ name: helm-skaffold-demo
+description: Two-staged pipeline for helm-skaffold-demo
+serialPipeline:
+ stages:
+ - targetId: staging
+   profiles: [production]
+   strategy:
+     standard:
+       verify: true
+ - targetId: production
+   profiles: [production]
+   strategy:
+     standard:
+       verify: true
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+ name: staging
+description: This is our development environment
+requireApproval: false
+gke:
+ cluster: projects/multi-cluster-aablsk/locations/europe-west3-b/clusters/gke-az1
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+ name: production
+description: This is our production environment
+requireApproval: true
+gke:
+ cluster: projects/multi-cluster-aablsk/locations/europe-west3-c/clusters/gke-az2
+

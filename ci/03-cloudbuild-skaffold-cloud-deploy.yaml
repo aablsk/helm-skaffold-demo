@@ -1,0 +1,29 @@
+steps:
+  # build images, package & push helm chart
+  - name: gcr.io/k8s-skaffold/skaffold:v2.0.3-lts
+    args:
+      - "skaffold"
+      - "build"
+      - "--file-output=/workspace/artifacts.json"
+      - "--default-repo=$_CONTAINER_REGISTRY"
+  # test
+  - name: gcr.io/k8s-skaffold/skaffold:v2.0.3-lts
+    args:
+      - "skaffold"
+      - "test"
+      - "--build-artifacts=/workspace/artifacts.json"
+      - "--assume-yes"
+  # deploy with Cloud Deploy
+  - name: gcr.io/cloud-builders/gcloud
+    args: 
+      - "deploy"
+      - "releases"
+      - "create"
+      - "$SHORT_SHA-$$DATE-$$TIME"
+      - "--delivery-pipeline=helm-skaffold-demo"
+      - "--build-artifacts=/workspace/artifacts.json"
+      - "--region=$LOCATION"
+      - "--gcs-source-staging-dir=$_SOURCE_STAGING_BUCKET/$SHORT_SHA"
+      - "--skaffold-version=skaffold_preview"
+options:
+  logging: CLOUD_LOGGING_ONLY

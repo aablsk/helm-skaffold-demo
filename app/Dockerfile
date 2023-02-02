@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:current-alpine as build
+FROM node:current as build
 WORKDIR /app
 COPY package.json .
 COPY yarn.lock .

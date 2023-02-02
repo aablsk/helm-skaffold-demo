@@ -1,0 +1,11 @@
+steps:
+  # build images, run tests, deploy helm release
+  - name: gcr.io/k8s-skaffold/skaffold:v2.0.3-lts
+    args:
+      - "skaffold"
+      - "run"
+      - "--default-repo=$_CONTAINER_REGISTRY"
+      - "-p"
+      - "production"
+options:
+  logging: CLOUD_LOGGING_ONLY

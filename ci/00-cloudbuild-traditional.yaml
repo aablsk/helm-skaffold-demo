@@ -1,0 +1,43 @@
+steps:
+  # install dependencies
+  - name: gcr.io/cloud-builders/npm
+    args:
+      - "install"
+  # run unit tests
+  - name: gcr.io/cloud-builders/npm
+    args:
+      - "run"
+      - "test"
+  # run docker build
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build -t ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:${_SEMVER} .
+  # package helm chart
+  - name: 'gcr.io/$PROJECT_ID/helm:latest'
+    args:
+      - package
+      - helm
+  # push helm chart
+  - name: 'gcr.io/$PROJECT_ID/helm:latest'
+    args:
+      - push
+      - "*.tgz"
+      - "oci://${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/helm-charts"
+  # install helm chart to staging
+  - name: 'gcr.io/$PROJECT_ID/helm:latest'
+    args:
+      - install
+      - helm-skaffold-demo-release
+      - helm-skaffold-demo
+      - --repo
+      - https://${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/helm-charts"
+  # run E2E test
+  - name: mirror.gcr.io/cypress/included
+    args:
+      - "cypress"
+      - "run"
+images:
+# push docker image
+  - ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}:${_SEMVER}
+options:
+  logging: CLOUD_LOGGING_ONLY
